@@ -1,9 +1,8 @@
-/*
- * @file: /Users/i104/Chives/src/routes/__root.tsx
- * @author: dongyang
- */
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
-import { Toaster } from "sonner";
+import { createRootRoute, Link, Outlet } from "@tanstack/react-router"
+import { ErrorBoundary } from "@/components/ErrorBoundary"
+import { ErrorFallback } from "@/components/ErrorFallback"
+import { PendingFallback } from "@/components/PendingFallback"
+import { Toaster } from "sonner"
 
 function NotFound() {
   return (
@@ -22,6 +21,8 @@ function NotFound() {
 export const Route = createRootRoute({
   component: RootLayout,
   notFoundComponent: NotFound,
+  errorComponent: ErrorFallback,
+  pendingComponent: PendingFallback,
 });
 
 function RootLayout() {
@@ -35,13 +36,15 @@ function RootLayout() {
           <nav className="flex gap-4 text-sm text-muted-foreground">
             <Link to="/posts">Posts</Link>
             <Link to="/form-demo">Form</Link>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dashboard" search={{ metric: "sales", timeRange: "week" }}>Dashboard</Link>
             <Link to="/settings">Settings</Link>
           </nav>
         </div>
       </header>
       <main className="max-w-5xl mx-auto px-4 py-8">
-        <Outlet />
+        <ErrorBoundary>
+          <Outlet />
+        </ErrorBoundary>
       </main>
       <Toaster richColors closeButton />
     </div>

@@ -1,8 +1,8 @@
 import { useMemo } from "react"
 import ReactECharts from "echarts-for-react"
 import type { EChartsOption } from "echarts"
+import { getRouteApi } from "@tanstack/react-router"
 import { useDashboardQuery } from "@/hooks/dashboard"
-import { useDashboardStore } from "@/stores/dashboard"
 import {
   METRIC_LABELS,
   TIME_RANGE_LABELS,
@@ -70,13 +70,12 @@ function buildLineOption(
 }
 
 export default function DashboardPage() {
-  const { data, isLoading, isError, error } = useDashboardQuery()
-  const metric = useDashboardStore((s) => s.metric)
-  const timeRange = useDashboardStore((s) => s.timeRange)
-  const setMetric = useDashboardStore((s) => s.setMetric)
-  const setTimeRange = useDashboardStore((s) => s.setTimeRange)
+  const routeApi = getRouteApi("/dashboard")
+  const { metric, timeRange } = routeApi.useSearch()
+  const navigate = routeApi.useNavigate()
+  const { data, isLoading, isError, error } = useDashboardQuery(metric, timeRange)
 
-  const metricLabel = METRIC_LABELS[metric]
+  const metricLabel = METRIC_LABELS[metric as MetricType] ?? metric
 
   const barOption = useMemo(() => {
     if (!data) return null
@@ -101,8 +100,8 @@ export default function DashboardPage() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground mt-1">
-          ECharts charts driven by Zustand client state, data fetched via
-          TanStack Query from MSW mock handlers.
+          ECharts charts driven by URL search params, data fetched via TanStack
+          Query from MSW mock handlers.
         </p>
       </div>
 
@@ -120,7 +119,7 @@ export default function DashboardPage() {
                   variant={metric === key ? "default" : "ghost"}
                   size="sm"
                   className="rounded-none first:rounded-l-[calc(var(--radius)-1px)] last:rounded-r-[calc(var(--radius)-1px)]"
-                  onClick={() => setMetric(key)}
+                  onClick={() => navigate({ search: { metric: key, timeRange } })}
                 >
                   {label}
                 </Button>
@@ -135,7 +134,7 @@ export default function DashboardPage() {
           <span className="text-sm text-muted-foreground">时间范围</span>
           <Select
             value={timeRange}
-            onValueChange={(v) => setTimeRange(v as TimeRange)}
+            onValueChange={(v) => navigate({ search: { metric, timeRange: v } })}
           >
             <SelectTrigger className="w-28">
               <SelectValue />
@@ -191,7 +190,7 @@ export default function DashboardPage() {
                 {metricLabel} — 柱状图
               </CardTitle>
               <CardDescription>
-                {TIME_RANGE_LABELS[timeRange]} · {metricLabel}
+                {TIME_RANGE_LABELS[timeRange as TimeRange] ?? timeRange} · {metricLabel}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -212,7 +211,7 @@ export default function DashboardPage() {
                 {metricLabel} — 折线图
               </CardTitle>
               <CardDescription>
-                {TIME_RANGE_LABELS[timeRange]} · {metricLabel}
+                {TIME_RANGE_LABELS[timeRange as TimeRange] ?? timeRange} · {metricLabel}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -227,13 +226,12 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* Zustand state indicator */}
+      {/* Search params indicator */}
       <div className="rounded-[var(--radius)] border bg-muted/50 px-4 py-3">
         <p className="text-xs text-muted-foreground">
-          Zustand store:{" "}
-          <code className="text-foreground">useDashboardStore</code> holds{" "}
-          <code>metric=&quot;{metric}&quot;</code> and{" "}
-          <code>timeRange=&quot;{timeRange}&quot;</code>. Query key is{" "}
+          URL search params:{" "}
+          <code>metric=&quot;{metric}&quot;</code> ·{" "}
+          <code>timeRange=&quot;{timeRange}&quot;</code> · Query key is{" "}
           <code>[&quot;dashboard&quot;, &quot;{metric}&quot;, &quot;{timeRange}&quot;]</code>.
         </p>
       </div>

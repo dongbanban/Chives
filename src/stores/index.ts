@@ -1,6 +1,4 @@
-export { useDashboardStore } from "./dashboard"
 export { useSettingsStore } from "./settings"
 export { useFormDraftStore } from "./form-draft"
-export type { DashboardState } from "./dashboard"
 export type { FormDraftState } from "./form-draft"
 export type { SettingsState, Language } from "./settings"

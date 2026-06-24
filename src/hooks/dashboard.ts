@@ -1,12 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
 import { queryOptions } from "@tanstack/react-query"
 import { fetchDashboardData } from "@/api/dashboard"
-import { useDashboardStore } from "@/stores/dashboard"
 
-export function dashboardQueryOptions(
-  metric: string,
-  timeRange: string
-) {
+export function dashboardQueryOptions(metric: string, timeRange: string) {
   return queryOptions({
     queryKey: ["dashboard", metric, timeRange],
     queryFn: () => fetchDashboardData(metric, timeRange),
@@ -14,10 +10,7 @@ export function dashboardQueryOptions(
   })
 }
 
-export function useDashboardQuery() {
-  const metric = useDashboardStore((s) => s.metric)
-  const timeRange = useDashboardStore((s) => s.timeRange)
-
+export function useDashboardQuery(metric: string, timeRange: string) {
   return useQuery({
     ...dashboardQueryOptions(metric, timeRange),
   })

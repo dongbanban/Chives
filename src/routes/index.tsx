@@ -25,7 +25,7 @@ function HomePage() {
           <Link to="/form-demo">Form — Mutation + Zustand</Link>
         </Button>
         <Button asChild variant="outline">
-          <Link to="/dashboard">Dashboard — ECharts + Zustand</Link>
+          <Link to="/dashboard" search={{ metric: "sales", timeRange: "week" }}>Dashboard — ECharts + Zustand</Link>
         </Button>
         <Button asChild variant="outline">
           <Link to="/settings">Settings — Zustand Persist</Link>

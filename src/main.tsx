@@ -1,4 +1,6 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router"
+import { ErrorFallback } from "@/components/ErrorFallback"
+import { PendingFallback } from "@/components/PendingFallback"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { routeTree } from "./routeTree.gen"
@@ -13,6 +15,8 @@ const queryClient = new QueryClient({
 const router = createRouter({
   routeTree,
   context: { queryClient },
+  defaultErrorComponent: ErrorFallback,
+  defaultPendingComponent: PendingFallback,
 })
 
 declare module "@tanstack/react-router" {

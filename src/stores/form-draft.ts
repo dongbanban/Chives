@@ -20,7 +20,7 @@ export const useFormDraftStore = create<FormDraftState>()(
     (set) => ({
       ...initialState,
       setDraft: (draft) => set((s) => ({ ...s, ...draft })),
-      clearDraft: () => set({ title: "", category: "", description: "" }),
+      clearDraft: () => set({ ...initialState }),
     }),
     { name: "chives-form-draft" }
   )
