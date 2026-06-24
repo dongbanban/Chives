@@ -1,1 +1,1 @@
-export {}
+export { usePostsQuery, usePostQuery } from "./posts"

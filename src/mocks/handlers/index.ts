@@ -1,5 +1,6 @@
 import { http, HttpResponse } from "msw"
 import { dashboardHandler } from "./dashboard"
+import { postsListHandler, postDetailHandler } from "./posts"
 
 export const handlers = [
   http.get("/api/health", () => HttpResponse.json({ status: "ok" })),
@@ -30,4 +31,6 @@ export const handlers = [
       { status: 201 }
     )
   }),
+  postsListHandler,
+  postDetailHandler,
 ]
