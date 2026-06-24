@@ -10,11 +10,17 @@ const queryClient = new QueryClient({
   },
 })
 
-const router = createRouter({ routeTree })
+const router = createRouter({
+  routeTree,
+  context: { queryClient },
+})
 
 declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router
+  }
+  interface RouterContext {
+    queryClient: QueryClient
   }
 }
 

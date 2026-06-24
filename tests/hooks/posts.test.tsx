@@ -3,8 +3,13 @@ import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
-import { usePostsQuery, usePostQuery } from '@/hooks/posts'
-import type { Post, PostListResponse } from '@/types/post'
+import {
+  usePostsQuery,
+  usePostQuery,
+  postListQueryOptions,
+  postDetailQueryOptions,
+} from '@/hooks/posts'
+import type { Post, PostListResponse, Category } from '@/types/post'
 
 const MOCK_POSTS: Post[] = [
   {
@@ -12,7 +17,7 @@ const MOCK_POSTS: Post[] = [
     title: 'Test Post 1',
     summary: 'Summary 1',
     content: 'Content 1',
-    category: 'tech',
+    category: 'tech' as Category,
     createdAt: '2025-01-01T00:00:00.000Z',
   },
   {
@@ -20,7 +25,7 @@ const MOCK_POSTS: Post[] = [
     title: 'Test Post 2',
     summary: 'Summary 2',
     content: 'Content 2',
-    category: 'life',
+    category: 'life' as Category,
     createdAt: '2025-01-02T00:00:00.000Z',
   },
 ]
@@ -102,7 +107,7 @@ describe('usePostQuery', () => {
 
     expect(result.current.data?.id).toBe('1')
     expect(result.current.data?.title).toBe('Test Post 1')
-    expect(result.current.data?.category).toBe('tech')
+    expect(result.current.data?.category).toBe('tech' as Category)
   })
 
   it('returns error for non-existent post', async () => {
@@ -122,5 +127,22 @@ describe('usePostQuery', () => {
 
     expect(result.current.isLoading).toBe(false)
     expect(result.current.fetchStatus).toBe('idle')
+  })
+})
+
+describe('queryOptions factories', () => {
+  it('postListQueryOptions returns correct queryKey', () => {
+    const opts = postListQueryOptions(3, 20)
+    expect(opts.queryKey).toEqual(['posts', 'list', 3, 20])
+  })
+
+  it('postDetailQueryOptions returns correct queryKey', () => {
+    const opts = postDetailQueryOptions('42')
+    expect(opts.queryKey).toEqual(['posts', 'detail', '42'])
+  })
+
+  it('postDetailQueryOptions has enabled=false for empty id', () => {
+    const opts = postDetailQueryOptions('')
+    expect(opts.enabled).toBe(false)
   })
 })
