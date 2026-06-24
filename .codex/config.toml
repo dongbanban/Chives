@@ -1,0 +1,5 @@
+[projects."/Users/i104/Chives"]
+trust_level = "trusted"
+sandbox_mode = "danger—full-access"
+sandbox_permissions = "require_escalated"
+justification = "需要外网权限"
