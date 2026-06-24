@@ -1,16 +1,21 @@
-import { createFileRoute, Link } from "@tanstack/react-router"
-import { Button } from "@/components/ui/button"
+/*
+ * @file: /Users/i104/Chives/src/routes/index.tsx
+ * @author: dongyang
+ */
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
-})
+});
 
 function HomePage() {
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold tracking-tight">技术融合 Demo</h1>
+      <h1 className="text-3xl font-bold tracking-tight">Chives</h1>
       <p className="text-muted-foreground max-w-2xl">
-        前端主流技术栈融合演练项目。通过多个独立 Demo 页面，分别展示不同技术组合的最佳实践和协作方式。
+        前端主流技术栈融合演练项目。通过多个独立 Demo
+        页面，分别展示不同技术组合的最佳实践和协作方式。
       </p>
       <div className="flex flex-wrap gap-3">
         <Button asChild variant="outline">
@@ -27,5 +32,5 @@ function HomePage() {
         </Button>
       </div>
     </div>
-  )
+  );
 }

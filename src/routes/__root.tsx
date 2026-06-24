@@ -1,5 +1,9 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router"
-import { Toaster } from "sonner"
+/*
+ * @file: /Users/i104/Chives/src/routes/__root.tsx
+ * @author: dongyang
+ */
+import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { Toaster } from "sonner";
 
 function NotFound() {
   return (
@@ -7,16 +11,18 @@ function NotFound() {
       <div className="text-center space-y-2">
         <h1 className="text-4xl font-bold">404</h1>
         <p className="text-muted-foreground">Page not found</p>
-        <Link to="/" className="text-sm underline">Go home</Link>
+        <Link to="/" className="text-sm underline">
+          Go home
+        </Link>
       </div>
     </div>
-  )
+  );
 }
 
 export const Route = createRootRoute({
   component: RootLayout,
   notFoundComponent: NotFound,
-})
+});
 
 function RootLayout() {
   return (
@@ -24,7 +30,7 @@ function RootLayout() {
       <header className="border-b">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center gap-6">
           <Link to="/" className="font-semibold text-lg">
-            技术融合 Demo
+            Chives
           </Link>
           <nav className="flex gap-4 text-sm text-muted-foreground">
             <Link to="/posts">Posts</Link>
@@ -39,5 +45,5 @@ function RootLayout() {
       </main>
       <Toaster richColors closeButton />
     </div>
-  )
+  );
 }
