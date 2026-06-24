@@ -3,7 +3,7 @@ import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
-import { usePostsQuery, usePostQuery } from '../posts'
+import { usePostsQuery, usePostQuery } from '@/hooks/posts'
 import type { Post, PostListResponse } from '@/types/post'
 
 const MOCK_POSTS: Post[] = [

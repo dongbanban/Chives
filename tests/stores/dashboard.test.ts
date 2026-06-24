@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { useDashboardStore } from '../dashboard'
+import { useDashboardStore } from '@/stores/dashboard'
 
 beforeEach(() => {
   useDashboardStore.setState({ metric: 'sales', timeRange: 'week' })

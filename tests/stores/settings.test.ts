@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { useSettingsStore } from '../settings'
+import { useSettingsStore } from '@/stores/settings'
 
 beforeEach(() => {
   useSettingsStore.setState({
