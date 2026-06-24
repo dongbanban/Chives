@@ -1,7 +1,9 @@
 import { http, HttpResponse } from "msw"
+import { dashboardHandler } from "./dashboard"
 
 export const handlers = [
   http.get("/api/health", () => HttpResponse.json({ status: "ok" })),
+  dashboardHandler,
   http.post("/api/feedback", async ({ request }) => {
     const body = (await request.json()) as {
       title: string
