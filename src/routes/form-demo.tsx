@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router"
+import FormDemoPage from "@/pages/form-demo/form-demo-page"
 
 export const Route = createFileRoute("/form-demo")({
-  component: () => <div className="p-4">Coming in a future issue</div>,
+  component: FormDemoPage,
 })

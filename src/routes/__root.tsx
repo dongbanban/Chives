@@ -1,4 +1,5 @@
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router"
+import { Toaster } from "sonner"
 
 function NotFound() {
   return (
@@ -36,6 +37,7 @@ function RootLayout() {
       <main className="max-w-5xl mx-auto px-4 py-8">
         <Outlet />
       </main>
+      <Toaster richColors closeButton />
     </div>
   )
 }
