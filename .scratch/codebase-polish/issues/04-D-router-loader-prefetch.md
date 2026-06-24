@@ -1,6 +1,6 @@
 ## Parent
 
-[代码质量基线补全](/Users/i104/Chives/docs/prd/0001-codebase-polish.md)
+[代码质量基线补全](../PRD.md)
 
 ## What to build
 

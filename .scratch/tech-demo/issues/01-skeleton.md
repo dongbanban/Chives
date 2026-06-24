@@ -2,7 +2,7 @@
 
 ## Parent
 
-PRD: 前端技术融合 Demo 项目初始化 (`docs/prd-0001-tech-demo.md`)
+PRD: 前端技术融合 Demo 项目初始化 (../PRD.md)
 
 ## What to build
 
