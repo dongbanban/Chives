@@ -1,3 +1,4 @@
+sandbox_mode = "danger-full-access"
 [projects."/Users/i104/Chives"]
 trust_level = "trusted"
 sandbox_mode = "danger—full-access"
