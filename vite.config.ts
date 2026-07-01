@@ -18,4 +18,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    allowedHosts: ['.trycloudflare.com'],
+    warmup: {
+      clientFiles: ['./src/main.tsx', './src/routes/__root.tsx', './index.html'],
+    },
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'echarts', '@tanstack/react-query', '@tanstack/react-router'],
+  },
 })
